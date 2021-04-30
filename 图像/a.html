@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图像</title>
+</head>
+<body>
+    
+    <canvas id="canvas" style="display:block;margin:0 auto;border:1px solid #aaa;">
+    您的浏览器不支持</canvas>
+
+    <input type="range" id="scale_range" value="0.5" min="0.5" max="3.0" step="0.01"  style="display: block;margin:20px auto; width: 800px;">
+
+    <script>
+
+        var convas=document.getElementById("canvas");
+        var context=canvas.getContext("2d");
+        var slider=document.getElementById("scale_range");
+        var image=new Image();
+
+        window.onload=function(){
+
+            convas.width=1200;
+            convas.height=600;
+
+            let scale=slider.value;
+console.log(scale)
+            image.src="test.png";
+            image.onload=function(){
+               // context.drawImage(image,0,0,1200,600);
+               drawImageByScale(scale);
+            }
+        }
+
+        function drawImageByScale(scale){
+            let imageWidth=1200*scale;
+            let imageHeight=600*scale;
+
+         //   let sx=imageWidth/2-convas.width/2;
+         //   let sy=imageHeight/2-convas.height/2;
+
+         //   context.drawImage(image,sx,sy,convas.width,convas.height,0,0,convas.width,convas.height);
+
+         let dx=convas.width/2-imageWidth/2;
+         let dy=convas.height/2-imageHeight/2;
+
+         context.drawImage(image,dx,dy,imageWidth,imageHeight)
+        }
+    </script>
+</body>
+</html>
